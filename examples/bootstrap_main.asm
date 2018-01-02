@@ -152,6 +152,8 @@ CheckNewlineChar:
 	inc hl
 	ret
 
+	db $00 ; padding
+
 ; sectioned at unused space after wCmdQueue
 CharPairPointerDecode:
 	callw2 CharPairDecode
@@ -185,4 +187,3 @@ ReadAndFilterChar:
 
 ; event flags
 ; unused: d7d7 to d7ff
-EndOfFile::

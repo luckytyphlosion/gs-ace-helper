@@ -4,4 +4,4 @@
 00:00A6 wStoredTID
 00:007F IncrementTID
 00:0000 Bootstrap
-00:00A6 EndOfFile
+00:00A6 EndOfBootstrap

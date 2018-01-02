@@ -32,5 +32,5 @@
 *.sn0
 
 # script output text
-*
-!route.txt
+rgbds_out.txt
+outputs/

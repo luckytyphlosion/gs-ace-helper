@@ -97,4 +97,3 @@ CharPairDecode:
 	ret
 
 wStoredTID::
-EndOfFile::

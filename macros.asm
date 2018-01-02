@@ -151,6 +151,10 @@ IF _NARG == 4
 BOOTSTRAP_OFFSET EQUS "\1"
 SRAM_OFFSET EQUS "\2"
 INCLUDE \3
+PRINTT "include_file \3\n"
+PRINTT "bootstrap_offset "
+PRINTV \1
+PRINTT "\n"
 ENDC
 ENDM
 
