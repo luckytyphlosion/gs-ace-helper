@@ -1,2 +1,14 @@
 # Auto detect text files and perform LF normalization
-* text=auto
+* text eol=lf
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+*.asm text
+*.py  text
+*.txt text
+*.sh  text
+*.link text
+Makefile text
+
+# Denote all files that are truly binary and should not be modified.
+*.gb binary

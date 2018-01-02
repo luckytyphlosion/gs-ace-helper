@@ -4,11 +4,15 @@
 .SUFFIXES: .asm .o .gb
 
 TEMP_OUTPUT := rgbds_out.txt
+# file header
+INCLUDE_HEADER ?= 1
+SCRATCH_DEST ?= 0
+# 
 all: bootstrap.gb
 
 
 bootstrap.o: bootstrap.asm
-	rgbasm -p 0xff -o bootstrap.o bootstrap.asm &> $(TEMP_OUTPUT)
+	rgbasm -p 0xff -o bootstrap.o bootstrap.asm | tee $(TEMP_OUTPUT)
 
 bootstrap.gb: bootstrap.o
 	rgblink -n bootstrap.sym -l bootstrap.link -o $@ $<
@@ -19,10 +23,10 @@ clean:
 do: clean bootstrap.gb
 
 base16: clean bootstrap.gb
-	python char_encode.py $(TEMP_OUTPUT) base16
+	python char_encode.py $(TEMP_OUTPUT) base16 $(INCLUDE_HEADER) $(SCRATCH_DEST)
 
 hex: clean bootstrap.gb
-	python char_encode.py $(TEMP_OUTPUT) hex
+	python char_encode.py $(TEMP_OUTPUT) hex $(INCLUDE_HEADER) $(SCRATCH_DEST)
 
 reversed: clean bootstrap.gb
-	python char_encode.py $(TEMP_OUTPUT) reversed
+	python char_encode.py $(TEMP_OUTPUT) reversed $(INCLUDE_HEADER) $(SCRATCH_DEST)

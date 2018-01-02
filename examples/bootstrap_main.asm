@@ -2,7 +2,7 @@
 ; bit 0-1: sram bank
 ; bit 2: bootstrap or execute
 ; bit 3: specify bootstrap mail buffer scratch dest
-; bit 4: base16 or hex encoding. base16 assumes little endian, hex encoding assumes big endian
+; bit 4: base16 or hex encoding. both are big endian
 ; if upper 7 bits are %1110001 (- or /), execute directly. bit 4 corresponds to jump encoding
 ; 4 chars: bootstrap dest or execute src
 ; 1 char: flags 2

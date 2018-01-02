@@ -147,13 +147,17 @@ ldrw: MACRO
 ENDM
 
 include_file: MACRO
-IF _NARG == 4
+IF _NARG == 5
 BOOTSTRAP_OFFSET EQUS "\1"
-SRAM_OFFSET EQUS "\2"
-INCLUDE \3
-PRINTT "include_file \3\n"
-PRINTT "bootstrap_offset "
+SRAM_OFFSET EQUS "\3"
+INCLUDE \4
+PRINTT "\ninclude_file \4"
+PRINTT "\nbootstrap_offset "
 PRINTV \1
+PRINTT "\nsram_bank "
+PRINTV \2
+PRINTT "\nsram_offset "
+PRINTV \3
 PRINTT "\n"
 ENDC
 ENDM

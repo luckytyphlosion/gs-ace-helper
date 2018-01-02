@@ -8,8 +8,8 @@
 *.exe
 
 # roms
-*.gbc
 *.gb
+*.gbc
 
 # rgbds extras
 *.sym
@@ -33,4 +33,5 @@
 
 # script output text
 rgbds_out.txt
+immediate_output.txt
 outputs/
