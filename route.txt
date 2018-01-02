@@ -1,0 +1,458 @@
+=== Achieving Arbitrary ACE on Pokémon Gold/Silver VC ===
+
+== What is Arbitrary ACE? ==
+Arbitrary ACE is a term created by myself and possibly ExtraTricky (I forget) which is a state where one can execute any possible combinations of bytes (within memory limitations) with ease. With Coin Case or TM17 ACE solely, this is not possible as you are limited to the set of Box Name characters or easily acquirable items.
+
+This setup aims to create a bootstrapper which can store arbitrary bytes and execute them, while maintaining compatibility with Virtual Console versions which do not emulate certain functionality of original consoles or accurate emulators (namely execution in SRAM). The setup should take no more than an hour and does not have any complicated instructions (although they are monotonous and boring in the name of efficiency).
+
+== Prerequisites ==
+- A Quagsire knowing Return as its first move holding TM02.
+- The Coin Case item.
+- A freshly acquired, low level Pokémon. There are a lot of edge cases which prevent certain Pokémon from working, so for the sake of simplicity you should only use Pokémon caught on Route 29.
+- Bellsprout seen in the Pokédex.
+- A useless item in the first slot of the Items Pocket of the bag.
+
+== Acquiring the Prerequisites ==
+(Skip this section if you already have them).
+- Quagsire can be found surfing in Ruins of Alph, or by evolving Wooper.
+- TM02 can be obtained from an NPC in Ilex Forest, or by buying it at Goldenrod Department Store 5F if it has been acquired from Ilex Forest already.
+- TM27 Return can be acquired at Goldenrod Department Store 5F on Sunday if the first non-Egg party Pokémon has 150 or greater happiness. If you don't know what happiness is, just place a Pokémon which you've used a lot at the front of the party.
+	- To change the day to Sunday, do the following:
+	- Take note of your trainer name, trainer ID and current money, and use https://codepen.io/acarbonaro/full/EjqPQL/ to generate a password to reset the clock
+	- On the title screen (with the legendary box Pokémon), press Down + B + Select, select Yes on the dialogue that appears, and enter the password.
+	- The game will accept your password if done correctly. Upon hitting Continue on the main menu, the game will allow you to reset the clock. Change the date to Sunday to be able to obtain TM27 Return.
+- The Coin Case can be found in the Goldenrod Underground Tunnels.
+- The freshly acquired, low level Pokémon must follow these rules:
+	- Simplified:
+		- Cannot have a stat of 16
+		- Special Defense stat cannot be 6, 8, or 14.
+	- Indepth:
+		- Internally, stats are ordered as such: Current HP, Max HP, Attack, Defense, Speed, Sp. Atk, Sp. Def
+		- Cannot have a stat of 16 if done on real hardware or accurate emulators (3DS VC does not apply here), unless if the previous stat was 8. It is recommended to discard Pokémon with a stat of 16 in case of an update to the 3DS VC emulator.
+		- Cannot have a Special Defense stat of 6, 8 or 14, unless if Special Attack is 8 and Speed is not 8.
+	- Note that even if all these rules are followed there is still the chance of the Pokémon not working due to its internal DV values, which are randomized and hidden to the player. The steps for failure will be mentioned later.
+
+== Getting TM17 + extras ==
+(Skip the technical explanation if you don't care)
+In Generation 2, if a TM is used in a non-TM pocket the game will read past the list of functions which designate what each item does, and in turn will jump to a nonsense place in the code. This can be abused for easier ACE than using the Coin Case; specifically we will use TM17 as it will execute code near the end of the first party Pokémon's data (which will fall through to the second party Pokémon's data, which will be Quagsire.)
+
+The setup as follows:
+- Enter Goldenrod's Pokémon Center.
+- Walk to the Pokémon Center PC, and access the "Change Box" option from Bill's PC.
+- Name the boxes using "CoinCaseReference" at the bottom of the guide
+- Have the Quagsire with Return and TM02 in the fourth slot of the party, and the low level Pokémon in the third slot of the party.
+- Save the game.
+- From the Pokémon Center PC, walk one tile downwards and three tiles left (exact movement), then open the menu. If you mess the movement, you must walk back to the PC, open & close the Start Menu and try again.
+- Open the Start Menu, and play Bellsprout's cry via the Pokédex.
+- Go to the player's bag, and change pockets so that the "Pocket Switch SFX" plays.
+- Use the Coin Case. If done correctly, you should have a TM17 in the first slot of the Item Pocket (do not use it yet!), a TM01 & TM09 in the TM Pocket, and instant text if enabled. Safety save the game here.
+	- If the game crashes or you do not get all items, reset the game and double check your box names. If they have been typed correctly, you will have to acquire another low level Pokémon.
+
+== Preparation for the main bootstrap ==
+- Have Quagsire hold the TM01.
+- Move Quagsire to the second party slot, and the low level Pokémon to the first party slot.
+- Walk back to the PC, and name the boxes using "BoxNameBoostrap" at the bottom of the guide.
+- [Optional]: Go to the Daycare. The music is relaxing there for what you'll have to do next :P.
+- Save the game, and prepare for a lot of inputting.
+
+== The opposite of fun (Main Bootstrap) ==
+- Use TM17 in the Items Pocket.
+- Input the mail codes using "MailBoostrap" at the bottom of the guide.
+- The mail input dialogues should stop generating once all messages have been entered. Save the game here.
+
+== Verifying the bootstrap ==
+- Name the boxes using "BootstrapVerify1" at the bottom of the guide
+- Have Quagsire hold the TM09.
+- Save the game here.
+- Use TM17.
+- Input the mail codes using "BootstrapVerify2" at the bottom of the guide.
+- Rename Box 1 so that it is "EKEJIA".
+- Save the game here.
+- Use TM17. If the resulting textbox prints 29544, then the bootstrap has been inputted correctly (barring collisions, which can only occur if all character pairs have been entered in correctly but are not in the correct positions) and you are done!
+	- If the resulting textbox does not print 29544, then you must redo from "Preparation for the main bootstrap" (although you will only need to rename boxes 1 to 2)
+
+== Epilogue ==
+For 3DSVC users, "TIDGen" is located at the bottom of the guide as a sample program.
+
+=== Special Thanks ===
+- Everyone who worked on the pokecrystal disassembly, as well as PikalaxALT in particular for having a(n incomplete) pokegold which helped me track down some label addresses.
+- The people at GCLF for their work on Gen 2 ACE, specifically the Quagsire TM02 + Return method and documentation on TM17.
+- ISSOtm, for suggesting me to use RGBDS to compile the bootstrap (which saved me an immense amount of time).
+
+=== Input References ===
+
+== CoinCaseReference ==
+- There are no spaces in any of the box names. Spaces are used as separators for each individual character.
+- Special characters will be noted below:
+	- All characters are case-sensitive!
+	- 'd, 'l, 'm, 'r, 's, 't, and 'v: Single letters with an apostrophe prefix
+	- pk, mn, po, and ke: symbols which have the two letters in one tile
+	- ♂ and ♀ are the male and female symbols respectively
+	- é is the accent e character
+	- × is the multiplication symbol. x is lowercase x.
+	- All symbols exist on the current input menu. Press select or choose the (UPPER/lower) option to change character sets.
+
+= With Instant Text (wears off upon reset) =
+Box 1: A 0 9 'v B é 'm 2
+Box 2: p 'v 9 é G 't . 9
+Box 3: é é 't 'v ♂ é × 2
+Box 4: P pk ♀ 4 Z 'l ? 'd
+Box 5: é Z 'l p p p 0 'd
+Box 6: é y 't 'm ♀ ♀
+
+= Without Instant Text =
+Box 1: A 0 9 'v B é 'm 2
+Box 2: p 'v 9 é G 't . 9
+Box 3: é é 't 'v ♂ é . 2
+Box 4: P pk ♀ p p p 0 'd
+Box 5: é y 't 'm ♀ ♀
+
+== BoxNameBoostrap ==
+Box 1: p 'v b 'v X ♀ 'v 3
+Box 2: é ? 2 'v p é ♂ 2
+Box 3: H 0 n é 5 2 0 9
+Box 4: 'v ; ♀ pk p p 'v 6
+Box 5: 'l x x x 't 4 5 2
+Box 6: 'v 9 x x - 0 . 'l
+Box 7: ♀ 'd
+
+== MailBootstrap ==
+- Mail Messages 1 to 4 have characters separated by spaces, while Mail Messages 5 to 19 are not separated.
+- The numbers before each row for Mail Messages 1 to 4 represent the number of characters on each row. Each message is separated by an empty line.
+- Make sure you double check the messages before inputting them so you don't waste time!
+
+= Mail Messages 1 to 4 =
+16: p 'v 9 é A . é I . 'v 9 é [ . 'v 9
+15: é ] . 'v ? é J . 'v 6 é po . 'v 3
+
+16: i i . é S . 'v 8 é P . é Y . 'v )
+
+16: / 'v H P 's O . 's 's 's q 'v 5 ♀ ♀ 8
+15: 8 5 'v A ♀ 'l H H H H H s s s ×
+
+7: 'v 9 'd x 'm O .
+
+= Mail Messages 5 to 19 =
+NMJPGNDMBPADBCPL
+INKCHEHIIDIBFOBB
+
+FNBMFNODEABCCECG
+PMBNKBLMPLCBHEBC
+
+PLINNMOHBDBONMNB
+ENCGLGIHOPDOIDBA
+
+JOGODALMAFICPANM
+BOADKCHEKCPEKCHF
+
+KCPFFNDMKBBDLMIF
+FPFNBBFFHMBCBNIN
+
+EMNBENFNFNBBFNBM
+ODEABCCECGPMBNFN
+
+BCFNBMBAAAAAIBKA
+NMGCENCBDBBIPEAD
+
+BAEANMPKHNOHOPAF
+ICEAOPHOACKOFPFN
+
+BCKOPPJHCDAHEFNF
+BCFKDMBAFACMNMND
+
+CDNMBEMBBNBMIDNL
+BOLMAEICHLBOLHFJ
+
+PEKHMJHEBNBPNMBO
+ADKPEMINPBIDKALA
+
+LAIHCBDBJHCBDBDA
+DADMKBBDOHOPOEAM
+
+DCJMJJNMGCENHFNM
+GCENPFJMFMNMHDEN
+
+HIHIHIHIHENMHDEN
+GOPAALBMJMNMPKHN
+
+KPPLINLMHGKCIMGM
+KAJM
+
+= BootstrapVerify1 =
+Box 1: A K E J I A
+Box 2: a 'm / 'v
+
+= BootstrapVerify2 =
+- The "checksum" line indicates if a mail code was inputted correctly (barring collisions). It is printed on the top of the screen after selecting "END" in the mail message menu. If the checksum is incorrect, select "NO" in the YES/NO dialogue to try again.
+- As there is checksum functionality, you do not need to be as careful when inputting mail codes.
+
+MIAA
+checksum: 200
+
+CBPDNGABMCAAMNCD
+MINFCBBNNEABCHAA
+checksum: 1652
+
+MNCDMIGCGLNBBJHM
+OAOJHNOAOKCBDAMI
+checksum: 2324
+
+MDFOAPPAJPPFDOAF
+NHMNOBFCPBOAJPMJ
+checksum: 2567
+
+AJOJPPCFAGFA!
+checksum: 620
+
+== TIDGen ==
+- This program will fill the current selected box with the Pokémon of your choice, and saves the game.
+- Each Pokémon will have a unique TID counting up from 00000.
+- Level and shininess are specifiable options.
+- Box 3's name is used to specify options, with the format as follows:
+	- Char1&2: Internal ID of the Pokémon to get, in hex (reference: http://pastebin.com/raw/arPmsvYu )
+	- Char3&4: Level of the Pokémon to get, in hex.
+	- Char5: Number of Pokémon to generate, where "A" = 1, "B" = 2, "C" = 3 etc. Will stop generating if the box is full regardless
+	- Char6: Flags
+		- "A": Set initial TID to 00000 and disable shininess. Set to "B" after one use.
+		- "B": Keep currently stored TID and disable shininess
+		- "C": Set initial TID to 00000 and enable shininess. Set to "D" after one use.
+		- "D": Keep currently stored TID and enable shininess
+- Note that if the number of Pokémon in the party is 6, the 6th Pokémon will be replaced by a "temporary" generated Pokémon!!!
+- Example input for 20 L100 shiny Suicunes, starting at TID 0: F564UC
+
+= Input using Hex =
+- BootstrapHeader is what the first box's name should be when writing the mail codes
+- ExecuteHeader is what the first box's name should be when running the code
+
+BootstrapHeader: QA4D2A
+ExecuteHeader: UA4D2A
+
+C800
+checksum: 200
+
+2122DA7EFE062001
+3521D1D8CD95C8EA
+checksum: 2003
+
+04D0CD95C8EA40D0
+2AD6803CF57ECB4F
+checksum: 2369
+
+F5CB47CBC7772005
+2142A52277AFEA5F
+checksum: 1998
+
+CE3E06CD492EFA22
+DAFE0620F43DEA05
+checksum: 1936
+
+D03E01EA08D0F128
+07212FDB3EAA2277
+checksum: 1693
+
+C1C5CD7FC83E08CD
+492EC138030520F1
+checksum: 1846
+
+FABFD8E603CDE130
+2143A53520022B35
+checksum: 1816
+
+CDF1303E0521CC4C
+CF112500C3243EAF
+checksum: 1603
+
+CDE1302142A52AEA
+20DB7EEA21DB34C0
+checksum: 2125
+
+2B34C3F130C52AC6
+0A87878787472AC6
+checksum: 1877
+
+0AE60FB0C1C9!
+checksum: 825
+
+= Input using Base16 =
+BootstrapHeader: AKENCA
+ExecuteHeader: EKENCA
+
+MIAA
+checksum: 200
+
+CBCCNKHOPOAGCAAB
+DFCBNBNIMNJFMIOK
+checksum: 2003
+
+AENAMNJFMIOKEANA
+CKNGIADMPFHOMLEP
+checksum: 2369
+
+PFMLEHMLMHHHCAAF
+CBECKFCCHHKPOKFP
+checksum: 1998
+
+MODOAGMNEJCOPKCC
+NKPOAGCAPEDNOKAF
+checksum: 1936
+
+NADOABOKAINAPBCI
+AHCBCPNLDOKKCCHH
+checksum: 1693
+
+MBMFMNHPMIDOAIMN
+EJCOMBDIADAFCAPB
+checksum: 1846
+
+PKLPNIOGADMNOBDA
+CBEDKFDFCAACCLDF
+checksum: 1816
+
+MNPBDADOAFCBMMEM
+MPBBCFAAMDCEDOKP
+checksum: 1603
+
+MNOBDACBECKFCKOK
+CANLHOOKCBNLDEMA
+checksum: 2125
+
+CLDEMDPBDAMFCKMG
+AKIHIHIHIHEHCKMG
+checksum: 1877
+
+AKOGAPLAMBMJ!
+checksum: 825
+
+=== Specification ===
+- The bootstrap has two modes: Bootstrap and Execute:
+	- Bootstrap has three stages:
+		- Input: Data is to be inputted here using the "Create Mail" menu. Each byte is comprised of two characters and the resulting byte is formed depending on the chosen format.
+		- Checksum: After a mail message is inputted, the message is converted to byte format and then checksummed using an additive checksum, which is printed on the top of the screen for the player as a verification. A Yes/No box appears if the checksum is incorrect, for the player to decide. During this stage, the message is also checked for a "!" which signifies the terminator for the bootstrapper.
+		- Copy: The resulting message is copied to the destination, specified by the flag options. The destination has a four byte header, followed by the data boostrapped. The four byte header is comprised of a two byte count which is automatically calculated, and the scratch destination to copy to for the Execute mode.
+	- Execute:
+		- The game will copy [count] bytes (specified in the header) from the designated source to the destination (specified in the header), and subsequently execute the copied data.
+
+- The bootstrap is controlled by the flag options in Box 1:
+- Char 1: Flags 1
+	- Bit 0-1: SRAM Bank to open for the duration of the bootstrap.
+	- Bit 2: Select bootstrap mode. Unset corresponds to Bootstrap, while Set corresponds to Execute.
+	- Bit 3: Allow specifying a custom location as the temporary buffer for the mail messages, where the buffer pointer is inputted starting at Box 3.
+	- Bit 4: Selecting encoding choice. Unset corresponds to base16, while Set corresponds to Hex Encoding.
+	- If the flag value is greater than 0xe3 ("-" char), execute the pointer directly. Bit 4 is specifiable by using either "-" or "/" respectively.
+- Char 2-5: Bootstrap pointer in encoded form. Is equivalent to the destination pointer for bootstrap mode, and the source pointer for execute mode.
+- Char 6: Flags 2
+	- Bit 0: If set, don't include the header during the Copy stage
+
+=== SRAM labels ===
+; use these to find free space
+SECTION "SRAM 0", SRAM, BANK[0]
+sScratch:: ds 7 * 7 * 8 ; a000
+sDecompressBuffer:: ds 7 * 7 * 16 ; a188 
+; a498 to a5ff free
+
+; a600
+sPartyMail::
+sPartyMon1Mail:: mailmsg sPartyMon1Mail
+sPartyMon2Mail:: mailmsg sPartyMon2Mail
+sPartyMon3Mail:: mailmsg sPartyMon3Mail
+sPartyMon4Mail:: mailmsg sPartyMon4Mail
+sPartyMon5Mail:: mailmsg sPartyMon5Mail
+sPartyMon6Mail:: mailmsg sPartyMon6Mail
+
+; a71a
+sPartyMailBackup::
+sPartyMon1MailBackup:: mailmsg sPartyMon1MailBackup
+sPartyMon2MailBackup:: mailmsg sPartyMon2MailBackup
+sPartyMon3MailBackup:: mailmsg sPartyMon3MailBackup
+sPartyMon4MailBackup:: mailmsg sPartyMon4MailBackup
+sPartyMon5MailBackup:: mailmsg sPartyMon5MailBackup
+sPartyMon6MailBackup:: mailmsg sPartyMon6MailBackup
+
+; a834
+sMailboxCount:: db
+sMailbox::
+sMailbox1::  mailmsg sMailbox1
+sMailbox2::  mailmsg sMailbox2
+sMailbox3::  mailmsg sMailbox3
+sMailbox4::  mailmsg sMailbox4
+sMailbox5::  mailmsg sMailbox5
+sMailbox6::  mailmsg sMailbox6
+sMailbox7::  mailmsg sMailbox7
+sMailbox8::  mailmsg sMailbox8
+sMailbox9::  mailmsg sMailbox9
+sMailbox10:: mailmsg sMailbox10
+
+; aa0b
+sMailboxCountBackup:: db
+sMailboxBackup::
+sMailbox1Backup::  mailmsg sMailbox1Backup
+sMailbox2Backup::  mailmsg sMailbox2Backup
+sMailbox3Backup::  mailmsg sMailbox3Backup
+sMailbox4Backup::  mailmsg sMailbox4Backup
+sMailbox5Backup::  mailmsg sMailbox5Backup
+sMailbox6Backup::  mailmsg sMailbox6Backup
+sMailbox7Backup::  mailmsg sMailbox7Backup
+sMailbox8Backup::  mailmsg sMailbox8Backup
+sMailbox9Backup::  mailmsg sMailbox9Backup
+sMailbox10Backup:: mailmsg sMailbox10Backup
+; abe2
+; most space is reserved here but labels unknown
+	ds 134
+
+sLuckyNumberDay:: ds 1 ; ac68
+sLuckyIDNumber:: ds 2 ; ac69
+sBackupStatusFlags:: ds $47d ; ac6b (wStatusFlags)
+sBackupPokemonData:: ds $4df ; b0e8 (wPartyCount)
+sBackupGameData:: ds $226 ; b5c7 (wGameData)
+sWindowStackEnd:: ; b7ec to sWindowStack at $bfff
+
+SECTION "SRAM 1", SRAM, BANK[1]
+
+sOptions:: ds 8 ; a000
+sValidCheck1:: ds 1 ; a008
+sGameData:: ds $84d ; a009
+sMapData:: ds $34; a856
+sPokemonData:: ds $4df ; a88a
+sChecksum:: ds 2 ; ad69
+sValidCheck2:: ds 1 ; ad6b
+sBox:: ds $44e ; ad6c
+
+sLinkBattleStats::
+sLinkBattleWins::   ds 2 ; b1ba
+sLinkBattleLosses:: ds 2 ; b1bc
+sLinkBattleDraws::  ds 2 ; b1be
+
+sLinkBattleRecords:: ds 90 ; b1c0, 6 records
+sHallOfFame:: ds $b7c ; b21a
+sHallOfFameEnd:: ; bd96
+sBackupObjectStructs:: ds $1aa ; bd96
+; bf3f
+
+
+SECTION "Boxes 1-7",  SRAM, BANK [2]
+
+	box sBox1 ; a000
+	box sBox2 ; a450
+	box sBox3 ; a8a0
+	box sBox4 ; acf0
+	box sBox5 ; b1f0
+	box sBox6 ; b590
+	box sBox7 ; b9e0
+; be2e
+
+SECTION "Boxes 8-14", SRAM, BANK [3]
+
+	box sBox8
+	box sBox9
+	box sBox10
+	box sBox11
+	box sBox12
+	box sBox13
+	box sBox14
+; be2e
+	ds 11 ; ???
+
+sBackupValidCheck1:: ds 1 ; be38
+sBackupMapData:: ds $34 ; be39
+sBackupChecksum:: ds 2 ; be6d
+sBackupValidCheck2:: ds 1 ; be6f
