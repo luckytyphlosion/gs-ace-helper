@@ -20,6 +20,7 @@
 	set 0, a
 	ld [hl], a
 	jr nz, .doNotInitTID
+	xor a
 	lds hl, wStoredTID
 	ld [hli], a
 	ld [hl], a

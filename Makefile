@@ -8,7 +8,8 @@ TEMP_OUTPUT := rgbds_out.txt
 INCLUDE_HEADER ?= 1
 SCRATCH_DEST ?= 0
 # 
-all: bootstrap.gb
+
+all: clean bootstrap.gb base16out hexout
 
 
 bootstrap.o: bootstrap.asm
@@ -22,10 +23,14 @@ clean:
 
 do: clean bootstrap.gb
 
-base16: clean bootstrap.gb
+base16: clean bootstrap.gb base16out
+
+base16out:
 	python char_encode.py $(TEMP_OUTPUT) base16 $(INCLUDE_HEADER) $(SCRATCH_DEST)
 
-hex: clean bootstrap.gb
+hex: clean bootstrap.gb hexout
+
+hexout:
 	python char_encode.py $(TEMP_OUTPUT) hex $(INCLUDE_HEADER) $(SCRATCH_DEST)
 
 reversed: clean bootstrap.gb
