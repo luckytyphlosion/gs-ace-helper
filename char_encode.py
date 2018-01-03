@@ -79,6 +79,9 @@ dump_output = ""
 
 with open("bootstrap.gb", "rb") as f:
 	bytes = bytearray(f.read(bootstrap_len))
+	if include_file_header:
+		dump_output += ("%x" % bootstrap_len).zfill(4) + ("%x" % bootstrap_addr).zfill(4)
+
 	dump_output += "".join(("%x" % byte).zfill(2) for byte in bytes) + "\n"
 
 try:
@@ -95,13 +98,13 @@ encode_output = ""
 
 if not reverse_endianness:
 	if sram_addr == 0:
-		temp_addr = bootstrap_addr
+		box_name_header_addr = bootstrap_addr
 	else:
-		temp_addr = sram_addr
+		box_name_header_addr = sram_addr
 
 	encode_output += "BootstrapHeader: %s%s%s\n" % (
 		chr(ord("A") | sram_bank | (1 << 3 if scratch_dest else 0) | (encoding_type << 4)),
-		encode_addr(temp_addr),
+		encode_addr(box_name_header_addr),
 		chr(ord("A") | include_file_header)
 		)
 
@@ -111,12 +114,12 @@ if not reverse_endianness:
 	if include_file_header:
 		encode_output += "ExecuteHeader: %s%sA\n\n" % (
 			chr(ord("A") | sram_bank | 1 << 2 | (encoding_type << 4)),
-			encode_addr(temp_addr)
+			encode_addr(box_name_header_addr)
 			)
 	else:
 		encode_output += "ExecuteHeader: %s%sA\n\n" % (
 			"/" if encoding_type else "-",
-			encode_addr(temp_addr)
+			encode_addr(box_name_header_addr)
 			)
 
 if include_file_header:
