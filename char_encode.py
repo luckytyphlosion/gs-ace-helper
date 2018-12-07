@@ -18,6 +18,8 @@ def encode_addr(addr):
 def rgbds_hex_to_int(hex_str):
 	return (int(hex_str.replace("$","").split()[1], 16) if "$" in hex_str else int(hex_str, 16))
 
+def rotate_byte_right(num):
+	return ((num >> 1) | (num << 7)) & 0xff
 
 reverse_endianness = False
 include_file_header = int(sys.argv[3]) == True
@@ -123,14 +125,16 @@ if not reverse_endianness:
 			)
 
 if include_file_header:
-	encode_output += encode_addr(bootstrap_addr) + "\nchecksum: %s\n\n" % ((bootstrap_addr >> 8) + (bootstrap_addr & 0xff))
+	header_checksum = rotate_byte_right(bootstrap_addr >> 8)
+	header_checksum = rotate_byte_right((header_checksum + bootstrap_addr) & 0xff)
+	encode_output += encode_addr(bootstrap_addr) + "\nchecksum: %s\n\n" % (header_checksum)
 
 for i, byte in enumerate(bytes):
 	if reverse_endianness:
 		encode_output += chars[byte & 0xf] + chars[(byte >> 4) & 0xf]
 	else:
 		encode_output += chars[(byte >> 4) & 0xf] + chars[byte & 0xf]
-	checksum = (checksum + byte) & 0xffff
+	checksum = rotate_byte_right((checksum + byte) & 0xff)
 
 	end_of_message = (i % 16 == 15)
 	end_of_bootstrap = (i == (len(bytes) - 1))

@@ -1,4 +1,4 @@
-; 29544 (hopefully)
+; 59346 (hopefully)
 hChecksumPrint EQU $ffe9
 
 	ld hl, $d6f3
@@ -20,13 +20,23 @@ hChecksumPrint EQU $ffe9
 	jp PrintText
 
 .Checksum:
-	ld a, [hROMBank]
-	push af
-	ld a, $5
-	rst $10
-	call Checksum
-	pop af
-	ld [hROMBank], a
+	ld de, 0
+.loop
+	ld a, [hli]
+	add e
+	ld e, a
+	jr nc, .noCarry
+	inc d
+.noCarry
+	sla e
+	rl d
+	jr nc, .noCarry2
+	inc e
+.noCarry2
+	dec bc
+	ld a, b
+	or c
+	jr nz, .loop	
 	ret
 
 .ChecksumText:

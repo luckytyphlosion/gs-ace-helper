@@ -87,9 +87,10 @@ _Bootstrap::
 	ld [de], a
 	inc de
 	add c
+	rrca
 	ld c, a
-	jr nc, .handleLoop
-	inc b
+	nop
+	nop
 .handleLoop
 	callw CheckNewlineChar
 	ld a, [hl]

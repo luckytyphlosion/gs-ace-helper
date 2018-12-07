@@ -68,8 +68,8 @@ The setup as follows:
 - Input the mail codes using "BootstrapVerify2" at the bottom of the guide.
 - Rename Box 1 so that it is "EKEJIA".
 - Save the game here.
-- Use TM17. If the resulting textbox prints 29544, then the bootstrap has been inputted correctly (barring collisions, which can only occur if all character pairs have been entered in correctly but are not in the correct positions) and you are done!
-	- If the resulting textbox does not print 29544, then you must redo from "Preparation for the main bootstrap" (although you will only need to rename boxes 1 to 2)
+- Use TM17. If the resulting textbox prints 59346, then the bootstrap has been inputted correctly (barring collisions, which can only occur if all character pairs have been entered in correctly but are not in the correct positions) and you are done!
+	- If the resulting textbox does not print 59346, then you must redo from "Preparation for the main bootstrap" (although you will only need to rename boxes 1 to 2)
 
 == Epilogue ==
 For 3DSVC users, "TIDGen" is located at the bottom of the guide as a sample program.
@@ -152,9 +152,9 @@ EMNBENFNFNBBFNBM
 ODEABCCECGPMBNFN
 
 BCFNBMBAAAAAIBKA
-NMGCENCBDBBIPEAD
+NMGCENCBDBBIPAPE
 
-BAEANMPKHNOHOPAF
+AAAANMPKHNOHOPAF
 ICEAOPHOACKOFPFN
 
 BCKOPPJHCDAHEFNF
@@ -187,22 +187,24 @@ Box 2: a 'm / 'v
 - As there is checksum functionality, you do not need to be as careful when inputting mail codes.
 
 MIAA
-checksum: 200
+checksum: 50
 
 CBPDNGABMCAAMNCD
 MINFCBBNNEABCHAA
-checksum: 1652
+checksum: 14
 
 MNCDMIGCGLNBBJHM
-OAOJHNOAOKCBDAMI
-checksum: 2324
+OAOJHNOAOKCBDJMI
+checksum: 241
 
-MDFOAPPAJPPFDOAF
-NHMNOBFCPBOAJPMJ
-checksum: 2567
+MDFOAPBBAAAACKID
+FPDAABBEMLCDMLBC
+checksum: 0
 
-AJOJPPCFAGFA!
-checksum: 620
+DAABBMALHILBCAOO
+MJAJOJPPCFAGFA!
+checksum: 42
+
 
 == TIDGen ==
 - This program will fill the current selected box with the Pokémon of your choice, and saves the game.
@@ -228,50 +230,51 @@ BootstrapHeader: QA4D2A
 ExecuteHeader: UA4D2A
 
 C800
-checksum: 200
+checksum: 50
 
 2122DA7EFE062001
 3521D1D8CD96C8EA
-checksum: 2004
+checksum: 228
 
 04D0CD96C8EA40D0
 2AD6803CF57ECB4F
-checksum: 2370
+checksum: 106
 
 F5CB47CBC7772006
 AF217DA52277AFEA
-checksum: 2138
+checksum: 27
 
 5FCE3E06CD492EFA
 22DAFE0620F43DEA
-checksum: 2026
+checksum: 101
 
 05D03E01EA08D0F1
 2807212FDB3EAA22
-checksum: 1579
+checksum: 22
 
 77C1C5CD80C83E08
 CD492EC138030520
-checksum: 1725
+checksum: 24
 
 F1FABFD8E603CDE1
 30217EA53520022B
-checksum: 2063
+checksum: 136
 
 35CDF1303E0521CC
 4CCF112500C3243E
-checksum: 1481
+checksum: 95
 
 AFCDE130217DA52A
 EA20DB7EEA21DB34
-checksum: 2167
+checksum: 23
 
 C02B34C3F130C52A
 C60A87878787472A
-checksum: 1871
+checksum: 177
 
 C60AE60FB0C1C9!
-checksum: 1023
+checksum: 160
+
 
 
 = Input using Base16 =
@@ -279,50 +282,50 @@ BootstrapHeader: AKENCA
 ExecuteHeader: EKENCA
 
 MIAA
-checksum: 200
+checksum: 50
 
 CBCCNKHOPOAGCAAB
 DFCBNBNIMNJGMIOK
-checksum: 2004
+checksum: 228
 
 AENAMNJGMIOKEANA
 CKNGIADMPFHOMLEP
-checksum: 2370
+checksum: 106
 
 PFMLEHMLMHHHCAAG
 KPCBHNKFCCHHKPOK
-checksum: 2138
+checksum: 27
 
 FPMODOAGMNEJCOPK
 CCNKPOAGCAPEDNOK
-checksum: 2026
+checksum: 101
 
 AFNADOABOKAINAPB
 CIAHCBCPNLDOKKCC
-checksum: 1579
+checksum: 22
 
 HHMBMFMNIAMIDOAI
 MNEJCOMBDIADAFCA
-checksum: 1725
+checksum: 24
 
 PBPKLPNIOGADMNOB
 DACBHOKFDFCAACCL
-checksum: 2063
+checksum: 136
 
 DFMNPBDADOAFCBMM
 EMMPBBCFAAMDCEDO
-checksum: 1481
+checksum: 95
 
 KPMNOBDACBHNKFCK
 OKCANLHOOKCBNLDE
-checksum: 2167
+checksum: 23
 
 MACLDEMDPBDAMFCK
 MGAKIHIHIHIHEHCK
-checksum: 1871
+checksum: 177
 
 MGAKOGAPLAMBMJ!
-checksum: 1023
+checksum: 160
 
 
 
